@@ -15,7 +15,16 @@ class CreateFlyersTable extends Migration
     {
         Schema::create('flyers', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->string('street');
+            $table->string('city', 40);
+            $table->string('zip', 10);
+            $table->string('country', 40);
+            $table->integer('price');
+            $table->text('description');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

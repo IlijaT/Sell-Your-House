@@ -32,7 +32,7 @@
 </div>
 
 <div class="form-group">
-    <label for="description">Description</label>
+    <label for="description">Home description</label>
     <textarea name="description"  rows="5" class="form-control" id="description">
         {{ old('description') }}
     </textarea>
