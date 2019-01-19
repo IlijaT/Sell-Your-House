@@ -7,7 +7,7 @@ try {
     require('bootstrap');
 } catch (e) {}
 
-
+window.swal = require('sweetalert');
 
 
 let token = document.head.querySelector('meta[name="csrf-token"]');
@@ -17,6 +17,7 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
