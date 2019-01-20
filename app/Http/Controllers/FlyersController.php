@@ -38,7 +38,17 @@ class FlyersController extends Controller
     {
         //Flyer::create($request->all());
 
-        flash()->error('Success!', 'Your flyer has been created');
+        auth()->user()->publishFlyer(
+            new Flyer([
+                'street' => $request->street,
+                'city' => $request->city,
+                'zip' => $request->zip,
+                'country' => $request->country,
+                'price' => $request->price,
+                'description' => $request->description,
+            ])
+        );
+        flash()->success('Success!', 'Your flyer has been created');
         
         // temporary
         return redirect()->back();
@@ -50,9 +60,13 @@ class FlyersController extends Controller
      * @param  \App\Flyer  $flyer
      * @return \Illuminate\Http\Response
      */
-    public function show(Flyer $flyer)
+    public function show($zip, $street)
     {
-        //
+        
+        $flyer = Flyer::locatedAt($zip, $street)->first();
+
+        return view('flyers.show', compact('flyer'));
+
     }
 
     /**

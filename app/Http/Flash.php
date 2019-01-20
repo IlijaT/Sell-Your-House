@@ -6,6 +6,13 @@ class Flash
 {
     public function create($title, $message, $level, $key = 'flash_message')
     {
+        if ($key == "flash_message") {
+            session()->forget('flash_overlay_message');
+        } else {
+            session()->forget('flash_message');
+        }
+
+
         session()->flash($key, [
             'title'   => $title,
             'message' => $message,
@@ -33,6 +40,6 @@ class Flash
 
     public function overlay($title, $message, $level = 'success')
     {
-        return $this->create($title, $message, $level, 'flash_message_overlay');
+        return $this->create($title, $message, $level, 'flash_overlay_message');
     }
 }
