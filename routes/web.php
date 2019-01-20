@@ -3,6 +3,7 @@
  
 
 Route::get('/', function () {
+    
     return view('pages.home');
 });
 
@@ -12,6 +13,7 @@ Route::resource('flyers', 'FlyersController')->except([
 ]);
 
 Route::get('{zip}/{street}', 'FlyersController@show')->name('flyers.show');
+Route::post('{zip}/{street}/photos', 'FlyersController@addPhoto')->name('flyers.addPhoto');
 
 Auth::routes();
 
