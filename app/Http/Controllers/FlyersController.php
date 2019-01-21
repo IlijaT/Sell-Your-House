@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Flyer;
 use Illuminate\Http\Request;
 use App\Http\Requests\FlyerRequest;
+use Illuminate\Http\UploadedFile;
 
 class FlyersController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['show']]);
     }
     /**
      * Display a listing of the resource.
@@ -118,6 +119,15 @@ class FlyersController extends Controller
             'path' => $file
         ]);
 
+        $thumbnail = $this->makeThumbnail(request()->file('photo'));
+
         return $file;
+    }
+
+    public function makeThumbnail(UploadedFile $file) 
+    
+    {
+        
+    
     }
 }
