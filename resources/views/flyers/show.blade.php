@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <h4 class="display-4"> {{ $flyer->street}}</h4>
             <h4 class="display-4">  {!!  $flyer->price !!}</h4>
             <hr>
@@ -11,10 +11,17 @@
             {{ nl2br($flyer->description) }}
             </div>
         </div>
-        <div class="col-md-9">
-            @foreach($flyer->photos as $photo)
-                <img src='{{ asset("storage/$photo->path") }}' alt="slika">
-            @endforeach        
+
+        <div class="col-md-8 galery">
+            @foreach($flyer->photos->chunk(4) as $set)
+                <div class="row">
+                    @foreach($set as $photo)
+                        <div class="col-md-3 galery_image">
+                            <img src='{{ asset("storage/$photo->path") }}' alt="slika">
+                        </div>
+                    @endforeach        
+                </div>
+            @endforeach
         </div>
     </div>
     <hr>
