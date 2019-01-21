@@ -62,11 +62,9 @@ class FlyersController extends Controller
      */
     public function show($zip, $street)
     {
-        
         $flyer = Flyer::locatedAt($zip, $street)->first();
 
         return view('flyers.show', compact('flyer'));
-
     }
 
     /**
@@ -101,5 +99,18 @@ class FlyersController extends Controller
     public function destroy(Flyer $flyer)
     {
         //
+    }
+
+    public function addPhoto($zip, $street)
+    {
+        $file = request()->file('file')->store('public');
+        
+        $flyer = Flyer::locatedAt($zip, $street)->first();
+        
+        $flyer->photos()->create([
+            'path' => $file
+        ]);
+
+        return $file;
     }
 }

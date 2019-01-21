@@ -12,4 +12,10 @@ class Photo extends Model
     {
         return $this->belongsTo('App\Flyer');
     }
+
+    public function getPathAttribute($path)
+    {
+        $imagePath = explode("/", $path);
+        return $imagePath[1];
+    }
 }
