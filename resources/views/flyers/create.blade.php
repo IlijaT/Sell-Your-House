@@ -8,12 +8,12 @@
         <h1 class="display-4"> Selling your home?</h1>
     </div>
 
-    <div class="row">
-        <form method="POST" action="/flyers" enctype="multipart/form-data" class="col-md-6">
-            @include('errors')
-            @csrf
-            @include('flyers.form')
-        </form>
-    </div>
+     
+    <form method="POST" action="/flyers" enctype="multipart/form-data">
+        @include('errors')
+        @csrf
+        @include('flyers.form')
+    </form>
+     
 </div>
 @endsection

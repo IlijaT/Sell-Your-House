@@ -13,17 +13,15 @@ class Flyer extends Model
         return $this->hasMany('App\Photo');
     }
 
-    public function scopeLocatedAt($query, $zip, $street)
+    public static function locatedAt($zip, $street)
     {
         $street = str_replace('-', ' ', $street);
 
-        return $query->where(compact('zip', 'street'));
+        return static::where(compact('zip', 'street'))->first();
     }
 
     public function getPriceAttribute($price)
     {
         return '&euro; '.number_format($price);
     }
-
-
 }

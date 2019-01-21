@@ -8,6 +8,11 @@ use App\Http\Requests\FlyerRequest;
 
 class FlyersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -62,7 +67,7 @@ class FlyersController extends Controller
      */
     public function show($zip, $street)
     {
-        $flyer = Flyer::locatedAt($zip, $street)->first();
+        $flyer = Flyer::locatedAt($zip, $street);
 
         return view('flyers.show', compact('flyer'));
     }
@@ -103,9 +108,11 @@ class FlyersController extends Controller
 
     public function addPhoto($zip, $street)
     {
-        $file = request()->file('file')->store('public');
+        request()->validate(['photo' => 'required|mimes:jpg,jpeg,png,bmp']);
+
+        $file = request()->file('photo')->store('public');
         
-        $flyer = Flyer::locatedAt($zip, $street)->first();
+        $flyer = Flyer::locatedAt($zip, $street);
         
         $flyer->photos()->create([
             'path' => $file

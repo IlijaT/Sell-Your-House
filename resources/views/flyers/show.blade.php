@@ -18,7 +18,8 @@
         </div>
     </div>
     <hr>
-    <form method="POST" action="/{{ $flyer->zip}}/{{ $flyer->street}}/photos"
+    <h2>Upload Your Photos</h2>
+    <form id="myAwesomeDropzone" method="POST" action="/{{ $flyer->zip}}/{{ $flyer->street}}/photos"
       class="dropzone"
       id="my-awesome-dropzone">
         @csrf  
@@ -29,4 +30,12 @@
 
 @section('scripts.footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+    <script>
+        Dropzone.options.myAwesomeDropzone = {
+            paramName: "photo", // The name that will be used to transfer the file
+            maxFilesize: 3, // MB
+            acceptedFiles: '.jpg, .jpeg, .bmp, .png',
+            
+        };
+    </script>
 @endsection
