@@ -35,8 +35,14 @@ class User extends Authenticatable
     }
 
 
+    
     public function publishFlyer(Flyer $flyer)
     {
         return $this->flyers()->save($flyer);
+    }
+
+    public function owns($flyer)
+    {
+        return $this->id == $flyer->user_id;
     }
 }

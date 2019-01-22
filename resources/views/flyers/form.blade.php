@@ -18,6 +18,11 @@
             <input name="zip" type="text" class="form-control" id="zip" value="{{ old('zip') }}">
         </div>
 
+         <div class="form-group">
+            <label for="phone">Phone</label>
+            <input name="phone" type="text" class="form-control" id="phone" value="{{ old('phone') }}">
+        </div>
+
         <div class="form-group">
             <label for="country">Country</label>
             <select name="country" class="form-control" id="country">
@@ -43,6 +48,8 @@
                 {{ old('description') }}
             </textarea>
         </div>
+
+       
 
     </div> 
 

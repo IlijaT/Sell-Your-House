@@ -30,6 +30,7 @@ class FlyerRequest extends FormRequest
             'country' => 'required',
             'price' => 'required',
             'description' => 'required',
+            'phone' => 'required'
         ];
     }
 }
