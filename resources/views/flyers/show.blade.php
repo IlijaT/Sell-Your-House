@@ -5,10 +5,11 @@
     <div class="row">
         <div class="col-md-4">
             <h4 class="display-4"> {{ $flyer->street}}</h4>
-            <h4 class="display-4">  {!!  $flyer->price !!}</h4>
+            <h5 class="display-5">  {!!  $flyer->price !!}</h5>
+            <h5 class="display-5"> tel:  {{ $flyer->phone }}</h5>
             <hr>
             <div class="description">
-            {{ nl2br($flyer->description) }}
+            {!! nl2br($flyer->description) !!}
             </div>
         </div>
 
@@ -22,15 +23,18 @@
                     @endforeach        
                 </div>
             @endforeach
+
+            @can('upload-photo', $flyer)
+                <hr>
+                <form id="myAwesomeDropzone" method="POST" action="/{{ $flyer->zip}}/{{ $flyer->street}}/photos"
+                class="dropzone"
+                id="my-awesome-dropzone">
+                    @csrf  
+                </form>
+            @endcan
         </div>
     </div>
-    <hr>
-    <h2>Upload Your Photos</h2>
-    <form id="myAwesomeDropzone" method="POST" action="/{{ $flyer->zip}}/{{ $flyer->street}}/photos"
-      class="dropzone"
-      id="my-awesome-dropzone">
-        @csrf  
-    </form>
+
      
 </div>
 @endsection

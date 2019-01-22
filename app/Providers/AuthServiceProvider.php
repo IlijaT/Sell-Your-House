@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('upload-photo', function ($user, $flyer) {
+            return $user->owns($flyer);
+        });
     }
 }

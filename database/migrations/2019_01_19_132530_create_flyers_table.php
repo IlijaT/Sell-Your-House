@@ -22,6 +22,7 @@ class CreateFlyersTable extends Migration
             $table->string('country', 40);
             $table->integer('price');
             $table->text('description');
+            $table->string('phone', 40);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

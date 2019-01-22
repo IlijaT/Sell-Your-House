@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Flyer;
 use Illuminate\Http\Request;
-use App\Http\Requests\FlyerRequest;
 use Illuminate\Http\UploadedFile;
+use App\Http\Requests\FlyerRequest;
+use Illuminate\Support\Facades\Gate;
 
 class FlyersController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['show']]);
@@ -42,22 +42,13 @@ class FlyersController extends Controller
      */
     public function store(FlyerRequest $request)
     {
-        //Flyer::create($request->all());
-
-        auth()->user()->publishFlyer(
-            new Flyer([
-                'street' => $request->street,
-                'city' => $request->city,
-                'zip' => $request->zip,
-                'country' => $request->country,
-                'price' => $request->price,
-                'description' => $request->description,
-            ])
+        $flyer = auth()->user()->publishFlyer(
+            new Flyer($request->all())
         );
+
         flash()->success('Success!', 'Your flyer has been created');
         
-        // temporary
-        return redirect()->back();
+        return redirect($flyer->zip.'/'.str_replace(" ", "-", $flyer->street));
     }
 
     /**
@@ -109,25 +100,21 @@ class FlyersController extends Controller
 
     public function addPhoto($zip, $street)
     {
+        $flyer = Flyer::locatedAt($zip, $street);
+
+        if (Gate::denies('upload-photo', $flyer)) {
+            abort(403, 'You have no permission to add photos');
+        }
         request()->validate(['photo' => 'required|mimes:jpg,jpeg,png,bmp']);
 
         $file = request()->file('photo')->store('public');
         
-        $flyer = Flyer::locatedAt($zip, $street);
         
         $flyer->photos()->create([
             'path' => $file
         ]);
 
-        $thumbnail = $this->makeThumbnail(request()->file('photo'));
 
         return $file;
-    }
-
-    public function makeThumbnail(UploadedFile $file) 
-    
-    {
-        
-    
     }
 }
