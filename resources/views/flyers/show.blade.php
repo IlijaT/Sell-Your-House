@@ -18,7 +18,9 @@
                 <div class="row">
                     @foreach($set as $photo)
                         <div class="col-md-3 galery_image">
-                            <img src='{{ asset("storage/$photo->path") }}' alt="slika">
+                            <a href='{{ asset("storage/$photo->path") }}' data-lity>
+                                <img class="thumbnail" src='{{ asset("storage/$photo->path") }}' alt="slika">
+                            </a>
                         </div>
                     @endforeach        
                 </div>
@@ -40,6 +42,7 @@
 @endsection
 
 @section('scripts.footer')
+     <script src="{{ asset('js/lity.js') }}" defer></script>"> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
     <script>
         Dropzone.options.myAwesomeDropzone = {
