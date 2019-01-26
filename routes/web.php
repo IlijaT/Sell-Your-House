@@ -1,9 +1,8 @@
 <?php
 
- 
+use App\Http\Controllers\PhotoController;
 
 Route::get('/', function () {
-    
     return view('pages.home');
 });
 
@@ -18,3 +17,4 @@ Route::post('{zip}/{street}/photos', 'FlyersController@addPhoto')->name('flyers.
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::delete('/photos/{photo}', 'PhotosController@destroy');

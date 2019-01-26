@@ -17,6 +17,15 @@
             @foreach($flyer->photos->chunk(4) as $set)
                 <div class="row">
                     @foreach($set as $photo)
+                        @can('upload-photo', $flyer)
+                            <form action="/photos/{{ $photo->id }}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                
+                                <button type="submit">X</button>
+                            </form>
+                        @endcan                             
+                    
                         <div class="col-md-3 galery_image">
                             <a href='{{ asset("storage/$photo->path") }}' data-lity>
                                 <img class="thumbnail" src='{{ asset("storage/$photo->path") }}' alt="slika">
