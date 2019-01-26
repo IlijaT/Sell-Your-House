@@ -24,4 +24,10 @@ class Flyer extends Model
     {
         return '&euro; '.number_format($price);
     }
+
+    public function getParcedStreet()
+    {
+        $street = str_replace(' ', '-', $this->street);
+        return $street;
+    }
 }

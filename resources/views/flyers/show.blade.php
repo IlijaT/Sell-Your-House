@@ -17,16 +17,18 @@
             @foreach($flyer->photos->chunk(4) as $set)
                 <div class="row">
                     @foreach($set as $photo)
-                        @can('upload-photo', $flyer)
-                            <form action="/photos/{{ $photo->id }}" method="POST">
-                                @method('DELETE')
-                                @csrf
-                                
-                                <button type="submit">X</button>
-                            </form>
-                        @endcan                             
+                                                     
                     
                         <div class="col-md-3 galery_image">
+                            @can('upload-photo', $flyer)
+                                <form action="/photos/{{ $photo->id }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    
+                                    <button type="submit">X</button>
+                                </form>
+                            @endcan
+
                             <a href='{{ asset("storage/$photo->path") }}' data-lity>
                                 <img class="thumbnail" src='{{ asset("storage/$photo->path") }}' alt="slika">
                             </a>
@@ -37,7 +39,7 @@
 
             @can('upload-photo', $flyer)
                 <hr>
-                <form id="myAwesomeDropzone" method="POST" action="/{{ $flyer->zip}}/{{ $flyer->street}}/photos"
+                <form id="myAwesomeDropzone" method="POST" action="/{{ $flyer->zip}}/{{ str_replace(' ', '-', $flyer->street)}}/photos"
                 class="dropzone"
                 id="my-awesome-dropzone">
                     @csrf  
