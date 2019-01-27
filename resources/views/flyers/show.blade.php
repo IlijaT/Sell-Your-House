@@ -12,9 +12,10 @@
             {!! nl2br($flyer->description) !!}
             </div>
         </div>
-
+        
         <div class="col-md-8 galery">
-            @foreach($flyer->photos->chunk(4) as $set)
+        <example-component></example-component>
+            <!-- @foreach($flyer->photos->chunk(4) as $set)
                 <div class="row">
                     @foreach($set as $photo)
                                                      
@@ -35,7 +36,7 @@
                         </div>
                     @endforeach        
                 </div>
-            @endforeach
+            @endforeach -->
 
             @can('upload-photo', $flyer)
                 <hr>
@@ -53,13 +54,16 @@
 @endsection
 
 @section('scripts.footer')
-     <script src="{{ asset('js/lity.js') }}" defer></script>"> 
+     <script src="{{ asset('js/lity.js') }}" defer></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
     <script>
         Dropzone.options.myAwesomeDropzone = {
             paramName: "photo", // The name that will be used to transfer the file
             maxFilesize: 3, // MB
             acceptedFiles: '.jpg, .jpeg, .bmp, .png',
+            init: function() {
+                this.on("success", function(file) { console.log(file); });
+            }
             
         };
     </script>

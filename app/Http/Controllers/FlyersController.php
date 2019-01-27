@@ -61,6 +61,10 @@ class FlyersController extends Controller
     {
         $flyer = Flyer::locatedAt($zip, $street);
 
+        if (\Request::ajax()) {
+            return $flyer->photos;
+        }
+
         return view('flyers.show', compact('flyer'));
     }
 
