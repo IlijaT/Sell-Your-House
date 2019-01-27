@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <h4 class="display-4"> {{ $flyer->street}}</h4>
             <h5 class="display-5">  {!!  $flyer->price !!}</h5>
             <h5 class="display-5"> tel:  {{ $flyer->phone }}</h5>
@@ -13,7 +13,7 @@
             </div>
         </div>
         
-        <div class="col-md-8 galery">
+        <div class="col-md-6 galery">
         <example-component></example-component>
             <!-- @foreach($flyer->photos->chunk(4) as $set)
                 <div class="row">
@@ -54,6 +54,7 @@
 @endsection
 
 @section('scripts.footer')
+    <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
      <script src="{{ asset('js/lity.js') }}" defer></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
     <script>
@@ -61,9 +62,6 @@
             paramName: "photo", // The name that will be used to transfer the file
             maxFilesize: 3, // MB
             acceptedFiles: '.jpg, .jpeg, .bmp, .png',
-            init: function() {
-                this.on("success", function(file) { console.log(file); });
-            }
             
         };
     </script>

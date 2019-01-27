@@ -1782,14 +1782,23 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    console.log(this.photos);
+    var pusher = new Pusher('2ae3cddae77386666e2e', {
+      cluster: 'eu',
+      forceTLS: true
+    });
+    var channel = pusher.subscribe('add-photo');
+    channel.bind('App\\Events\\PhotoHasCreated', this.addPhoto);
     axios.get(window.location.pathname).then(function (response) {
-      console.log(response);
       _this.photos = response.data; //console.log(response.data);
     }).catch(function (error) {
       // handle error
       console.log(error);
     });
+  },
+  methods: {
+    addPhoto: function addPhoto(data) {
+      this.photos.push(data.photo);
+    }
   }
 });
 

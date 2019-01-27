@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Flyer;
 use Illuminate\Http\Request;
+use App\Events\PhotoHasCreated;
 use Illuminate\Http\UploadedFile;
 use App\Http\Requests\FlyerRequest;
 use Illuminate\Support\Facades\Gate;
@@ -114,10 +115,11 @@ class FlyersController extends Controller
         $file = request()->file('photo')->store('public');
         
         
-        $flyer->photos()->create([
+        $photo = $flyer->photos()->create([
             'path' => $file
         ]);
 
+        event(new PhotoHasCreated($photo));
 
         return $file;
     }

@@ -16,10 +16,18 @@
             }
         },
         created() {
-            console.log(this.photos);
+
+            var pusher = new Pusher('2ae3cddae77386666e2e', {
+                cluster: 'eu',
+                forceTLS: true
+            });
+
+            var channel = pusher.subscribe('add-photo');
+            
+            channel.bind('App\\Events\\PhotoHasCreated', this.addPhoto);
+
             axios.get(window.location.pathname)
                 .then(response => {
-                    console.log(response);
                      this.photos = response.data;
                     //console.log(response.data);
                 })
@@ -28,6 +36,12 @@
                     console.log(error);
                 })
             
+         },
+
+         methods: {
+             addPhoto(data) {
+                 this.photos.push(data.photo);
+             }
          }
     }
 </script>
