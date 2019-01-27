@@ -22,10 +22,6 @@
                                         <p class="card-text">{!! $flyer->price !!}</p>
                                     </div>
                                 </div>
-
-                                <div class="col-md-4">
-                                    <img class="card-img-top" src="storage/{{$flyer->photos()->first()->path}}" alt="No image">
-                                </div>
                             </div>
                         </div>
                     </a>
